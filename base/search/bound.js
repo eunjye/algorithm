@@ -11,7 +11,7 @@ function lowerBound(arr, target) {
   let r = arr.length;   // [l, r)  : 오른쪽은 열려 있음
 
   while (l < r) {
-    const m = (l + r) >>> 1;   // 가운데 인덱스, 부호 무시 시프트
+    const m = l + ((r - l) >> 1);   // 가운데 인덱스, 오버플로 방지 패턴
     if (arr[m] < target) {
       l = m + 1;               // target 보다 작은 구간은 버림
     } else {
@@ -26,7 +26,7 @@ function upperBound(arr, target) {
   let r = arr.length;          // [l, r)
 
   while (l < r) {
-    const m = (l + r) >>> 1;
+    const m = l + ((r - l) >> 1);
     if (arr[m] <= target) {
       l = m + 1;               // target 까지는 버림
     } else {
@@ -49,6 +49,9 @@ function count(arr, target) {
   return hi - lo;          // 등장 횟수
 }
 
+
+const arr = [1, 2, 3, 4, 5];
+const target = 3;
 if (count(arr, target) > 0) {
   console.log('target exists');
 } else {
